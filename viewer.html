@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bran &amp; Sce&oacute;lang Image Viewer</title>
+<style>
+  :root {
+    --bg: #efe8da;
+    --panel: #fffaf0;
+    --ink: #1f1a16;
+    --muted: #6b6358;
+    --line: #d6cab5;
+    --gold: #b99757;
+    --accent: #7f4b22;
+    --shadow: 0 16px 36px rgba(31, 26, 22, 0.12);
+    --radius: 18px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at top left, rgba(185, 151, 87, 0.16), transparent 28%),
+      linear-gradient(180deg, #f6f0e4 0%, var(--bg) 100%);
+  }
+
+  .wrap {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 28px 24px 40px;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  .eyebrow {
+    margin: 0 0 6px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: .85rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    line-height: 1.05;
+  }
+
+  .lede {
+    margin: 10px 0 0;
+    max-width: 760px;
+    color: #41382f;
+    line-height: 1.55;
+  }
+
+  .top-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-link,
+  .raw-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 10px 14px;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid var(--line);
+  }
+
+  .nav-link {
+    background: white;
+    color: var(--ink);
+  }
+
+  .raw-link {
+    background: #f4e7cb;
+    color: var(--ink);
+    border-color: #c7a76d;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .panel {
+    background: color-mix(in srgb, var(--panel) 92%, white 8%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .sidebar {
+    padding: 18px;
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+
+  .sidebar h2,
+  .stage h2 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .sidebar p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .image-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .image-button {
+    width: 100%;
+    text-align: left;
+    border: 1px solid var(--line);
+    background: #fffdf7;
+    border-radius: 14px;
+    padding: 14px;
+    cursor: pointer;
+    font: inherit;
+    color: var(--ink);
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+
+  .image-button:hover {
+    transform: translateY(-1px);
+    border-color: #bfa16c;
+    background: #fff7e8;
+  }
+
+  .image-button.active {
+    border-color: var(--gold);
+    background: #f6ead2;
+    box-shadow: inset 0 0 0 1px rgba(185, 151, 87, 0.22);
+  }
+
+  .image-button strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .image-button span {
+    display: block;
+    color: var(--muted);
+    font-size: .94rem;
+    line-height: 1.4;
+  }
+
+  .stage {
+    padding: 18px;
+  }
+
+  .viewer-frame {
+    background: #fffef9;
+    border: 1px solid #e4d7c0;
+    border-radius: 16px;
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .viewer-frame img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+  }
+
+  .caption {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: start;
+    margin-top: 16px;
+  }
+
+  .caption h3 {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+  }
+
+  .caption p {
+    margin: 0;
+    line-height: 1.6;
+    color: #3f372f;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .pill {
+    border: 1px solid var(--line);
+    background: #fffdf7;
+    border-radius: 999px;
+    padding: 8px 11px;
+    color: var(--muted);
+    font-size: .92rem;
+  }
+
+  @media (max-width: 980px) {
+    .layout { grid-template-columns: 1fr; }
+    .caption { grid-template-columns: 1fr; }
+    .topbar { align-items: flex-start; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <p class="eyebrow">Standalone Viewer</p>
+        <h1>Bran &amp; Sce&oacute;lang Image Viewer</h1>
+        <p class="lede">Select an image from the list to load it into the viewer with a short note about what that variation is showing.</p>
+      </div>
+      <div class="top-actions">
+        <a class="nav-link" href="index.html">Back to Brief</a>
+        <a class="raw-link" id="rawLink" href="img/image.png" target="_blank" rel="noopener noreferrer">Open Raw PNG</a>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="panel sidebar">
+        <h2>Available Images</h2>
+        <p>Click any option to swap the image and its description.</p>
+        <div class="image-list" id="imageList"></div>
+      </aside>
+
+      <main class="panel stage">
+        <div class="viewer-frame">
+          <img id="viewerImage" src="img/image.png" alt="Main concept image" />
+        </div>
+        <div class="caption">
+          <div>
+            <h3 id="viewerTitle">Main concept</h3>
+            <p id="viewerDescription">The most polished concept pass, used as the primary visual reference for the brief and overall composition.</p>
+            <div class="meta">
+              <span class="pill" id="viewerFile">img/image.png</span>
+              <span class="pill" id="viewerShape">1536 x 1024</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+<script>
+const images = [
+  {
+    id: 'main',
+    title: 'Main concept',
+    file: 'img/image.png',
+    size: '1536 x 1024',
+    short: 'Primary reference image',
+    description: 'The most polished concept pass, used as the primary visual reference for the brief and overall composition.'
+  },
+  {
+    id: 'draft',
+    title: 'Draft',
+    file: 'img/draft.png',
+    size: '1536 x 1024',
+    short: 'Early wide composition',
+    description: 'An earlier full-width draft exploring the general balance between both hounds, the leaf rhythm, and the horizontal silhouette.'
+  },
+  {
+    id: 'draft1',
+    title: 'Draft 1',
+    file: 'img/draft1.png',
+    size: '1315 x 1195',
+    short: 'Taller variation',
+    description: 'A more upright variation with a denser center and a more vertical overall footprint than the preferred horizontal layout.'
+  },
+  {
+    id: 'draft2',
+    title: 'Draft 2',
+    file: 'img/draft2.png',
+    size: '1536 x 1024',
+    short: 'Alternate spacing pass',
+    description: 'An alternate composition pass that keeps the wide format but changes spacing and separation to test a cleaner read.'
+  }
+];
+
+const imageList = document.getElementById('imageList');
+const viewerImage = document.getElementById('viewerImage');
+const viewerTitle = document.getElementById('viewerTitle');
+const viewerDescription = document.getElementById('viewerDescription');
+const viewerFile = document.getElementById('viewerFile');
+const viewerShape = document.getElementById('viewerShape');
+const rawLink = document.getElementById('rawLink');
+
+function renderButtons(activeId) {
+  imageList.innerHTML = '';
+
+  images.forEach((image) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `image-button${image.id === activeId ? ' active' : ''}`;
+    button.innerHTML = `<strong>${image.title}</strong><span>${image.short}</span>`;
+    button.addEventListener('click', () => setActiveImage(image.id));
+    imageList.appendChild(button);
+  });
+}
+
+function setActiveImage(id) {
+  const image = images.find((entry) => entry.id === id) || images[0];
+  viewerImage.src = image.file;
+  viewerImage.alt = image.title;
+  viewerTitle.textContent = image.title;
+  viewerDescription.textContent = image.description;
+  viewerFile.textContent = image.file;
+  viewerShape.textContent = image.size;
+  rawLink.href = image.file;
+  renderButtons(image.id);
+}
+
+setActiveImage(images[0].id);
+</script>
+</body>
+</html>
