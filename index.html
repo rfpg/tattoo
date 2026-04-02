@@ -181,6 +181,33 @@
   }
 
   .placement .option.active { outline: 2px solid #ccb27b; background: #fff9ec; }
+  .placement-demo {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .placement-card {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fffefb;
+    overflow: hidden;
+  }
+  .placement-card img {
+    width: 100%;
+    display: block;
+    background: #f3ecde;
+  }
+  .placement-copy {
+    padding: 16px;
+  }
+  .placement-copy h3 {
+    margin-bottom: 8px;
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+  }
   .note { color: var(--muted); font-size: .95rem; }
   .footer { text-align: center; color: var(--muted); padding: 26px 0 8px; font-size: .94rem; }
 
@@ -191,7 +218,8 @@
     .hero,
     .grid,
     .meta,
-    .placement {
+    .placement,
+    .placement-demo {
       grid-template-columns: 1fr;
     }
   }
@@ -270,6 +298,27 @@
       </div>
     </section>
 
+    <section class="card section">
+      <h2>Placement Demo</h2>
+      <p class="note">Quick visual comparison of the two placement directions called out in the draft. The back option is meant to read like the broad upper-back spread in the reference photo you attached; the arm option keeps the same language but compresses it into a more linear flow.</p>
+      <div class="placement-demo">
+        <div class="placement-card">
+          <img src="img/placement-back-demo.png" alt="Upper back placement demo from draft" />
+          <div class="placement-copy">
+            <h3>Back / Upper Shoulders</h3>
+            <p>Best fit for the full horizontal composition. This is the broadest, most balanced read, and it matches the overall feel of your supplied back reference most closely.</p>
+          </div>
+        </div>
+        <div class="placement-card">
+          <img src="img/placement-arm-demo.png" alt="Underside of right arm placement demo from draft" />
+          <div class="placement-copy">
+            <h3>Underside Of Right Arm</h3>
+            <p>A tighter, more directional version for the underside of the arm. It keeps the paired-hound language but sacrifices some symmetry in exchange for movement along the limb.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="grid">
       <div class="card section">
         <h2>Refined brief</h2>
@@ -316,9 +365,7 @@
         <h2>Quick copy block</h2>
         <p class="note">This is the exact text used by the copy button.</p>
         <div class="card" style="padding:16px; background:#fffefb;">
-          <p id="copySource" style="white-space:pre-wrap; margin:0;">For SC - final design direction:
-
-Bran and Sce&oacute;lang in a Hiberno-Saxon / Insular manuscript style, focused entirely on the two hounds. Horizontal composition preferred. No Dara knot or central logo. Bran on the left: darker, black with grey patterning, emerald green eye. Sce&oacute;lang on the right: lighter, grey/white with black interspersed, lapis blue eye. Palette is primarily black and grey with restrained Insular accents: muted gold, scarlet red, and brighter green leaves. Tongues should remain a natural pink/red. The design should stay breathable, readable, and tattooable, with leaves included and enough negative space for longevity.</p>
+          <p id="copySource" style="white-space:pre-wrap; margin:0;">Bran and Sce&oacute;lang in a Hiberno-Saxon / Insular manuscript style, focused entirely on the two hounds. Horizontal composition preferred. No Dara knot or central logo. Bran on the left: darker, black with grey patterning, emerald green eye. Sce&oacute;lang on the right: lighter, grey/white with black interspersed, lapis blue eye. Palette is primarily black and grey with restrained Insular accents: muted gold, scarlet red, and brighter green leaves. Tongues should remain a natural pink/red. The design should stay breathable, readable, and tattooable, with leaves included and enough negative space for longevity.</p>
         </div>
       </div>
     </section>
