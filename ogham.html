@@ -111,21 +111,39 @@ h1 {
 }
 
 button {
-  padding:8px 14px;
-  border:1px solid #aaa;
-  background:#f5f5f5;
+  padding:10px 16px;
+  border:1px solid #bcae91;
+  border-radius:999px;
+  background:#fffaf0;
+  color:#111;
+  font:inherit;
   cursor:pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  transform:translateY(-1px);
+  background:#f8f0df;
 }
 
 button.active {
   background:#222;
   color:white;
+  border-color:#222;
+}
+
+.mode-note {
+  margin:0 auto;
+  max-width:680px;
+  text-align:center;
+  line-height:1.6;
+  color:#5a4f3e;
 }
 
 .svg-wrap {
   display:flex;
   justify-content:center;
-  margin-top:30px;
+  margin-top:22px;
   padding:24px;
   border:1px solid #d6cbb4;
   border-radius:20px;
@@ -134,12 +152,130 @@ button.active {
 
 /* BASE */
 .spine { stroke:black; stroke-width:6; }
-.fuaim { stroke:black; stroke-width:3; }
-.ceol { stroke:black; stroke-width:3; }
+.fuaim,
+.ceol {
+  stroke:black;
+  stroke-width:3;
+  opacity:1;
+  transition: opacity 1.25s ease-in-out;
+}
 
 /* LAYER MODES */
 .modeB .ceol { opacity:0; }
 .modeC .fuaim { opacity:0; }
+
+.palette-section {
+  margin-top:22px;
+  padding:18px;
+  border:1px solid #d6cbb4;
+  border-radius:18px;
+  background:#fffdf8;
+  text-align:center;
+}
+
+.palette-section h2 {
+  margin:0 0 10px;
+  font-size:1.1rem;
+}
+
+.palette-section > p {
+  margin:0 auto 18px;
+  max-width:720px;
+  line-height:1.6;
+  color:#3a3329;
+}
+
+.palette-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.palette-card {
+  padding:18px;
+  border:1px solid #d6cbb4;
+  border-radius:18px;
+  background:#fffaf2;
+}
+
+.palette-card h3 {
+  margin:0 0 12px;
+  font-size:1.02rem;
+}
+
+.palette-card p {
+  margin:0;
+  line-height:1.6;
+  color:#4b4134;
+}
+
+.color-wheel {
+  width:190px;
+  aspect-ratio:1;
+  margin:0 auto 16px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  border:1px solid #d6cbb4;
+  box-shadow: inset 0 0 0 8px rgba(255, 250, 240, 0.55);
+}
+
+.color-wheel span {
+  width:46%;
+  height:46%;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#fffdf8;
+  border:1px solid #d6cbb4;
+  font-weight:700;
+  letter-spacing:.03em;
+}
+
+.ceol-wheel {
+  background:conic-gradient(
+    #3568a8 0deg 95deg,
+    #2c8a57 95deg 180deg,
+    #c8a55a 180deg 275deg,
+    #3a3329 275deg 360deg
+  );
+}
+
+.fuaim-wheel {
+  background:conic-gradient(
+    #a33a2a 0deg 95deg,
+    #c8a55a 95deg 180deg,
+    #45663e 180deg 265deg,
+    #3a3329 265deg 360deg
+  );
+}
+
+.swatches {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:14px;
+}
+
+.swatch {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border:1px solid #d6cbb4;
+  border-radius:999px;
+  background:#fffdf8;
+  color:#4b4134;
+  font-size:.94rem;
+}
+
+.swatch-dot {
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  border:1px solid rgba(0, 0, 0, 0.12);
+}
 
 .notes {
   margin-top:22px;
@@ -164,6 +300,10 @@ button.active {
 @media (max-width: 700px) {
   .container {
     padding-bottom:80vh;
+  }
+
+  .palette-grid {
+    grid-template-columns:1fr;
   }
 
   .svg-wrap svg {
@@ -198,10 +338,12 @@ button.active {
 </div>
 
 <div class="controls">
-  <button onclick="setMode('modeA', event)" class="active">Both</button>
-  <button onclick="setMode('modeB', event)">Fuaim</button>
-  <button onclick="setMode('modeC', event)">Céol</button>
+  <button type="button" class="mode-button active" data-mode-button="modeA" onclick="setMode('modeA')">Both</button>
+  <button type="button" class="mode-button" data-mode-button="modeB" onclick="setMode('modeB')">Fuaim</button>
+  <button type="button" class="mode-button" data-mode-button="modeC" onclick="setMode('modeC')">Céol</button>
+  <button type="button" class="mode-button" data-mode-button="animate" onclick="startAnimation()">Animate</button>
 </div>
+<p class="mode-note" id="modeNote" aria-live="polite">Both: Showing the full combined column with both words visible together.</p>
 
 <div class="svg-wrap">
 
@@ -279,6 +421,39 @@ button.active {
 
 </div>
 
+<div class="palette-section">
+  <h2>Color Wheels</h2>
+  <p>Each word can carry its own color emphasis while keeping the overall piece grounded in muted Hiberno-Saxon manuscript tones.</p>
+  <div class="palette-grid">
+    <div class="palette-card">
+      <h3>Céol</h3>
+      <div class="color-wheel ceol-wheel" aria-hidden="true">
+        <span>Céol</span>
+      </div>
+      <p>Céol leans cooler and more luminous, with lapis and emerald balanced by rustic gold and dark ink so it still reads as carved linework rather than ornament.</p>
+      <div class="swatches">
+        <span class="swatch"><span class="swatch-dot" style="background:#3568a8"></span>Lapis blue</span>
+        <span class="swatch"><span class="swatch-dot" style="background:#2c8a57"></span>Emerald green</span>
+        <span class="swatch"><span class="swatch-dot" style="background:#c8a55a"></span>Rustic gold</span>
+        <span class="swatch"><span class="swatch-dot" style="background:#3a3329"></span>Ink black</span>
+      </div>
+    </div>
+    <div class="palette-card">
+      <h3>Fuaim</h3>
+      <div class="color-wheel fuaim-wheel" aria-hidden="true">
+        <span>Fuaim</span>
+      </div>
+      <p>Fuaim runs warmer, with scarlet oxide and gold carrying the energy, then moss green and charcoal pulling it back into an older, earthier manuscript palette.</p>
+      <div class="swatches">
+        <span class="swatch"><span class="swatch-dot" style="background:#a33a2a"></span>Scarlet red</span>
+        <span class="swatch"><span class="swatch-dot" style="background:#c8a55a"></span>Rustic gold</span>
+        <span class="swatch"><span class="swatch-dot" style="background:#45663e"></span>Moss green</span>
+        <span class="swatch"><span class="swatch-dot" style="background:#3a3329"></span>Charcoal ink</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="notes">
   <h2>Design Note</h2>
   <p>This page is now treated as a second tattoo design option in the project, so it can be viewed alongside the Bran &amp; Sce&oacute;lang brief rather than being buried as a separate experiment.</p>
@@ -287,11 +462,74 @@ button.active {
 </div>
 
 <script>
-function setMode(mode, evt) {
-  document.body.className = mode;
-  document.querySelectorAll("button").forEach(b => b.classList.remove("active"));
-  evt.target.classList.add("active");
+const modeButtons = Array.from(document.querySelectorAll(".mode-button"));
+const modeNote = document.getElementById("modeNote");
+const modeSequence = [
+  {
+    id: "modeA",
+    label: "Both",
+    note: "Showing the full combined column with both words visible together."
+  },
+  {
+    id: "modeB",
+    label: "Fuaim",
+    note: "Showing only the Fuaim line set."
+  },
+  {
+    id: "modeC",
+    label: "Céol",
+    note: "Showing only the Céol line set."
+  }
+];
+
+let animationTimer = null;
+let animationIndex = 0;
+
+function setActiveButton(buttonId) {
+  modeButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.modeButton === buttonId);
+  });
 }
+
+function setModeText(label, note, isAnimating) {
+  modeNote.textContent = isAnimating ? `Animating ${label}: ${note}` : `${label}: ${note}`;
+}
+
+function applyMode(modeId, isAnimating = false) {
+  const activeMode = modeSequence.find((entry) => entry.id === modeId) || modeSequence[0];
+  document.body.className = activeMode.id;
+  setModeText(activeMode.label, activeMode.note, isAnimating);
+}
+
+function stopAnimation() {
+  if (animationTimer) {
+    window.clearInterval(animationTimer);
+    animationTimer = null;
+  }
+}
+
+function setMode(modeId) {
+  stopAnimation();
+  applyMode(modeId);
+  setActiveButton(modeId);
+}
+
+function stepAnimation() {
+  const activeMode = modeSequence[animationIndex];
+  applyMode(activeMode.id, true);
+  animationIndex = (animationIndex + 1) % modeSequence.length;
+}
+
+function startAnimation() {
+  stopAnimation();
+  animationIndex = 0;
+  setActiveButton("animate");
+  stepAnimation();
+  animationTimer = window.setInterval(stepAnimation, 2300);
+}
+
+applyMode("modeA");
+setActiveButton("modeA");
 </script>
 
 </body>
