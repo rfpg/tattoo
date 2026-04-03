@@ -184,6 +184,64 @@
     border-radius: 12px;
   }
 
+  .live-stage {
+    display: none;
+    min-height: 720px;
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at top, rgba(185, 151, 87, 0.14), transparent 32%),
+      #fffef9;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .live-stage.active {
+    display: flex;
+  }
+
+  .live-stage svg {
+    width: min(240px, 100%);
+    height: auto;
+    display: block;
+  }
+
+  .live-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    border: 1px solid var(--line);
+    background: rgba(255, 253, 247, 0.96);
+    border-radius: 999px;
+    padding: 8px 12px;
+    color: var(--muted);
+    font-size: .9rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .ogham-svg .spine,
+  .ogham-svg .fuaim,
+  .ogham-svg .ceol {
+    stroke: #111;
+    stroke-width: 3;
+    fill: none;
+    transition: opacity .45s ease;
+  }
+
+  .ogham-svg .spine {
+    stroke-width: 6;
+  }
+
+  .ogham-svg.mode-b .ceol {
+    opacity: 0;
+  }
+
+  .ogham-svg.mode-c .fuaim {
+    opacity: 0;
+  }
+
   .caption {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
@@ -231,34 +289,92 @@
       <div>
         <p class="eyebrow">Ogham Viewer</p>
         <h1>Céol + Fuaim Reference Viewer</h1>
-        <p class="lede">This viewer is dedicated to the Ogham tattoo direction and includes the current Céol agus fuaim reference image used to support the standalone design page.</p>
+        <p class="lede">This viewer is dedicated to the Ogham tattoo direction and now leads with a live animated column based on the actual togglable design, alongside the sketch and tattoo-photo references.</p>
       </div>
       <div class="top-actions">
         <a class="nav-link" href="https://rfpg.github.io/">Back to Portfolio</a>
         <a class="nav-link" href="ogham.html">Open Ogham Design</a>
         <a class="nav-link" href="index.html">Open Hounds Design</a>
-        <a class="raw-link" id="rawLink" href="img/ceol-agus-fuaim.png" target="_blank" rel="noopener noreferrer">Open Raw File</a>
+        <a class="raw-link" id="rawLink" href="ogham.html">Open Full Design</a>
       </div>
     </div>
 
     <div class="layout">
       <aside class="panel sidebar">
-        <h2>Available Ogham Images</h2>
-        <p>Select the reference image to view it with the current notes for this tattoo direction.</p>
+        <h2>Available Ogham References</h2>
+        <p>Select the live column, source sketch, or tattoo example to compare the main reference formats for this design.</p>
         <div class="image-list" id="imageList"></div>
       </aside>
 
       <main class="panel stage">
         <div class="viewer-frame">
+          <div class="live-stage active" id="viewerLiveStage">
+            <span class="live-badge" id="liveModeLabel">Both</span>
+            <svg class="ogham-svg mode-a" id="viewerOghamSvg" viewBox="0 0 200 800" aria-label="Animated Ogham column">
+              <line x1="100" y1="50" x2="100" y2="750" class="spine"></line>
+
+              <g class="fuaim">
+                <line x1="80" y1="80" x2="120" y2="130"></line>
+              </g>
+
+              <g class="fuaim">
+                <line x1="70" y1="200" x2="130" y2="200"></line>
+                <line x1="70" y1="215" x2="130" y2="215"></line>
+                <line x1="70" y1="230" x2="130" y2="230"></line>
+                <line x1="70" y1="245" x2="130" y2="245"></line>
+                <line x1="70" y1="260" x2="130" y2="260"></line>
+              </g>
+
+              <g class="ceol">
+                <line x1="100" y1="200" x2="140" y2="200"></line>
+                <line x1="100" y1="215" x2="140" y2="215"></line>
+              </g>
+
+              <g class="ceol">
+                <line x1="70" y1="320" x2="130" y2="320"></line>
+                <line x1="70" y1="335" x2="130" y2="335"></line>
+              </g>
+
+              <g class="fuaim">
+                <line x1="70" y1="320" x2="130" y2="320"></line>
+              </g>
+
+              <g class="ceol">
+                <line x1="70" y1="440" x2="130" y2="440"></line>
+                <line x1="70" y1="455" x2="130" y2="455"></line>
+                <line x1="70" y1="470" x2="130" y2="470"></line>
+                <line x1="70" y1="485" x2="130" y2="485"></line>
+              </g>
+
+              <g class="fuaim">
+                <line x1="70" y1="440" x2="130" y2="440"></line>
+                <line x1="70" y1="455" x2="130" y2="455"></line>
+                <line x1="70" y1="470" x2="130" y2="470"></line>
+              </g>
+
+              <g class="ceol">
+                <line x1="100" y1="560" x2="60" y2="560"></line>
+                <line x1="100" y1="575" x2="60" y2="575"></line>
+                <line x1="100" y1="590" x2="60" y2="590"></line>
+                <line x1="100" y1="605" x2="60" y2="605"></line>
+              </g>
+
+              <g class="fuaim">
+                <line x1="100" y1="560" x2="140" y2="560"></line>
+                <line x1="100" y1="575" x2="140" y2="575"></line>
+                <line x1="100" y1="590" x2="140" y2="590"></line>
+              </g>
+            </svg>
+          </div>
           <img id="viewerImage" src="img/ceol-agus-fuaim.png" alt="Céol agus fuaim reference image" />
         </div>
         <div class="caption">
           <div>
-            <h3 id="viewerTitle">Céol agus fuaim reference</h3>
-            <p id="viewerDescription">The core reference image for the Céol + Fuaim direction, kept in its own viewer so the Ogham concept has a dedicated visual reference track separate from the hounds project.</p>
+            <h3 id="viewerTitle">Animated Ogham column</h3>
+            <p id="viewerDescription">A live version of the actual togglable Ogham layout, cycling through Both, Fuaim, and Céol so the viewer reflects the finished line system rather than the rough sketch.</p>
             <div class="meta">
-              <span class="pill" id="viewerFile">img/ceol-agus-fuaim.png</span>
-              <span class="pill" id="viewerShape">Reference image</span>
+              <span class="pill" id="viewerFile">Interactive SVG</span>
+              <span class="pill" id="viewerShape">Animated reference</span>
             </div>
           </div>
         </div>
@@ -269,17 +385,34 @@
 <script>
 const images = [
   {
+    id: 'animated-column',
+    title: 'Animated Ogham column',
+    kind: 'live',
+    file: 'Interactive SVG',
+    rawFile: 'ogham.html',
+    rawLabel: 'Open Full Design',
+    size: 'Animated reference',
+    short: 'Live togglable line system',
+    description: 'A live version of the actual togglable Ogham layout, cycling through Both, Fuaim, and Céol so the viewer reflects the finished line system rather than the rough sketch.'
+  },
+  {
     id: 'ceol-agus-fuaim',
-    title: 'Céol agus fuaim reference',
+    title: 'Céol agus fuaim sketch',
+    kind: 'image',
     file: 'img/ceol-agus-fuaim.png',
+    rawFile: 'img/ceol-agus-fuaim.png',
+    rawLabel: 'Open Raw File',
     size: '2048 x 1074',
-    short: 'Primary Ogham reference',
-    description: 'The core reference image for the Céol + Fuaim direction, kept in its own viewer so the Ogham concept has a dedicated visual reference track separate from the hounds project.'
+    short: 'Original rough source image',
+    description: 'The original sketch image kept as a secondary reference, useful for comparing the polished live column against the earlier rough drawing.'
   },
   {
     id: 'ogham-example',
     title: 'Ogham example tattoo',
+    kind: 'image',
     file: 'img/ogham-example.jpg',
+    rawFile: 'img/ogham-example.jpg',
+    rawLabel: 'Open Raw File',
     size: '3072 x 2993',
     short: 'Example tattoo photo',
     description: 'A tattoo example image for the Ogham direction, included so the concept can be compared against an actual in-skin reference alongside the source artwork.'
@@ -293,6 +426,27 @@ const viewerDescription = document.getElementById('viewerDescription');
 const viewerFile = document.getElementById('viewerFile');
 const viewerShape = document.getElementById('viewerShape');
 const rawLink = document.getElementById('rawLink');
+const viewerLiveStage = document.getElementById('viewerLiveStage');
+const viewerOghamSvg = document.getElementById('viewerOghamSvg');
+const liveModeLabel = document.getElementById('liveModeLabel');
+
+const liveModes = [
+  { className: 'mode-a', label: 'Both' },
+  { className: 'mode-b', label: 'Fuaim' },
+  { className: 'mode-c', label: 'Céol' }
+];
+
+let liveModeIndex = 0;
+
+function advanceLiveMode() {
+  const mode = liveModes[liveModeIndex];
+  viewerOghamSvg.className = `ogham-svg ${mode.className}`;
+  liveModeLabel.textContent = mode.label;
+  liveModeIndex = (liveModeIndex + 1) % liveModes.length;
+}
+
+advanceLiveMode();
+window.setInterval(advanceLiveMode, 1800);
 
 function renderButtons(activeId) {
   imageList.innerHTML = '';
@@ -309,13 +463,19 @@ function renderButtons(activeId) {
 
 function setActiveImage(id) {
   const image = images.find((entry) => entry.id === id) || images[0];
-  viewerImage.src = image.file;
-  viewerImage.alt = image.title;
+  const isLive = image.kind === 'live';
+  viewerLiveStage.classList.toggle('active', isLive);
+  viewerImage.style.display = isLive ? 'none' : 'block';
+  if (!isLive) {
+    viewerImage.src = image.file;
+    viewerImage.alt = image.title;
+  }
   viewerTitle.textContent = image.title;
   viewerDescription.textContent = image.description;
   viewerFile.textContent = image.file;
   viewerShape.textContent = image.size;
-  rawLink.href = image.file;
+  rawLink.href = image.rawFile;
+  rawLink.textContent = image.rawLabel;
   renderButtons(image.id);
 }
 
