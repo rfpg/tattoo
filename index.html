@@ -33,6 +33,12 @@
 
   .wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
 
+  .site-nav {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 18px;
+  }
+
   .hero {
     display: grid;
     grid-template-columns: 1.2fr .8fr;
@@ -263,6 +269,10 @@
 </head>
 <body>
   <div class="wrap">
+    <nav class="site-nav" aria-label="Site navigation">
+      <a class="viewer-link" href="https://rfpg.github.io/">Back to Portfolio</a>
+    </nav>
+
     <section class="design-switcher">
       <div class="card design-tile">
         <span class="design-tag">Design One</span>
@@ -277,7 +287,6 @@
         <h2>Céol + Fuaim Ogham</h2>
         <p class="lede">A separate ogham-based tattoo design system that can be viewed alongside the hounds concept as its own standalone design direction.</p>
         <div class="viewer-actions">
-          <a class="viewer-link" href="https://rfpg.github.io/">Back to Portfolio</a>
           <a class="viewer-link" href="ogham.html">Open Ogham Design</a>
           <a class="viewer-link" href="ogham-viewer.html">Open Ogham Viewer</a>
         </div>
@@ -294,7 +303,6 @@
         <p class="lede">The primary concept now sits front and center on the homepage. Use the separate viewer to compare it against the remaining reference images in the project.</p>
         <p class="note">The viewer includes the current image set from <code>img/</code>, including the main concept and the newer reference files still in the project.</p>
         <div class="viewer-actions">
-          <a class="viewer-link" href="https://rfpg.github.io/" target="_blank" rel="noopener noreferrer">Back to Portfolio</a>
           <a class="viewer-link" href="viewer.html" target="_blank" rel="noopener noreferrer">Open Image Viewer</a>
         </div>
       </div>
