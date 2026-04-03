@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Céol + Fuaim Ogham Tattoo Design</title>
+
+<style>
+body {
+  margin:0;
+  font-family: Georgia, serif;
+  background:#f7f3ea;
+  color:#111;
+  transition: all 0.3s ease;
+}
+
+.container {
+  max-width:960px;
+  margin:auto;
+  padding:40px 20px 120vh;
+}
+
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.intro {
+  max-width:620px;
+}
+
+.eyebrow {
+  margin:0 0 8px;
+  color:#6a604d;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.82rem;
+}
+
+h1 {
+  margin:0 0 10px;
+  line-height:1.05;
+}
+
+.lede {
+  margin:0;
+  line-height:1.6;
+  color:#3a3329;
+}
+
+.nav {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.nav a {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  border:1px solid #bcae91;
+  border-radius:999px;
+  background:#fffaf0;
+  color:#111;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.viewer-callout {
+  margin-top:22px;
+  padding:18px;
+  border:1px solid #d6cbb4;
+  border-radius:18px;
+  background:#fffdf8;
+}
+
+.viewer-callout p {
+  margin:0 0 12px;
+  line-height:1.6;
+  color:#3a3329;
+}
+
+.controls {
+  margin:20px 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+button {
+  padding:8px 14px;
+  border:1px solid #aaa;
+  background:#f5f5f5;
+  cursor:pointer;
+}
+
+button.active {
+  background:#222;
+  color:white;
+}
+
+.svg-wrap {
+  display:flex;
+  justify-content:center;
+  margin-top:30px;
+  padding:24px;
+  border:1px solid #d6cbb4;
+  border-radius:20px;
+  background:#fffdf8;
+}
+
+/* BASE */
+.spine { stroke:black; stroke-width:6; }
+.fuaim { stroke:black; stroke-width:3; }
+.ceol { stroke:#666; stroke-width:2; }
+
+/* EARTH PALETTE */
+.earth { background:#F4E9D8; }
+.earth .spine { stroke:#1A1A1A; }
+.earth .fuaim { stroke:#1A1A1A; }
+.earth .ceol { stroke:#5A7D5A; }
+.earth .ornament path { stroke:#B89A4A; }
+
+/* STENCIL MODE */
+.stencil {
+  background:white;
+}
+.stencil .spine,
+.stencil .fuaim,
+.stencil .ceol {
+  stroke:black !important;
+}
+.stencil .ceol {
+  stroke-width:3;
+}
+.stencil .ornament {
+  display:none;
+}
+
+/* LAYER MODES */
+.modeB .ceol { opacity:0; }
+.modeC .fuaim { opacity:0; }
+
+/* ORNAMENT */
+.ornament path {
+  stroke:#777;
+  stroke-width:1.5;
+  fill:none;
+  opacity:0;
+  transform: translateY(10px) scale(0.95);
+  transition: all 0.8s ease-out;
+}
+
+.showOrnament path {
+  opacity:1;
+  transform: translateY(0) scale(1);
+}
+
+.notes {
+  margin-top:22px;
+  padding:18px;
+  border:1px solid #d6cbb4;
+  border-radius:18px;
+  background:#fffdf8;
+}
+
+.notes h2 {
+  margin:0 0 10px;
+  font-size:1.1rem;
+}
+
+.notes p {
+  margin:0;
+  line-height:1.6;
+  color:#3a3329;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding-bottom:80vh;
+  }
+
+  .svg-wrap svg {
+    width:100%;
+    height:auto;
+  }
+}
+
+</style>
+
+</head>
+
+<body class="modeA">
+
+<div class="container">
+
+<div class="header">
+  <div class="intro">
+    <p class="eyebrow">Separate Tattoo Design</p>
+    <h1>Céol + Fuaim</h1>
+    <p class="lede">An ogham-based Insular tattoo concept presented as its own standalone design direction, separate from the hounds brief. Scroll to reveal ornament details.</p>
+  </div>
+  <div class="nav">
+    <a href="index.html">Open Hounds Design</a>
+    <a href="ogham-viewer.html">Open Ogham Viewer</a>
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="setMode('modeA', event)" class="active">Both</button>
+  <button onclick="setMode('modeB', event)">Fuaim</button>
+  <button onclick="setMode('modeC', event)">Céol</button>
+  <button onclick="togglePalette()">Earth</button>
+  <button onclick="toggleOrnament()">Ornament</button>
+  <button onclick="toggleStencil()">Stencil</button>
+</div>
+
+<div class="svg-wrap">
+
+<svg viewBox="0 0 200 800" width="200">
+
+<!-- Spine -->
+
+<line x1="100" y1="50" x2="100" y2="750" class="spine"/>
+
+<!-- LETTER SYSTEM -->
+
+<!-- M -->
+
+<g class="fuaim">
+  <line x1="80" y1="80" x2="120" y2="130"/>
+</g>
+
+<!-- I / L -->
+
+<g class="fuaim">
+  <line x1="70" y1="200" x2="130" y2="200"/>
+  <line x1="70" y1="215" x2="130" y2="215"/>
+  <line x1="70" y1="230" x2="130" y2="230"/>
+  <line x1="70" y1="245" x2="130" y2="245"/>
+  <line x1="70" y1="260" x2="130" y2="260"/>
+</g>
+
+<g class="ceol">
+  <line x1="100" y1="200" x2="140" y2="200"/>
+  <line x1="100" y1="215" x2="140" y2="215"/>
+</g>
+
+<!-- O / A -->
+
+<g class="ceol">
+  <line x1="70" y1="320" x2="130" y2="320"/>
+  <line x1="70" y1="335" x2="130" y2="335"/>
+</g>
+
+<g class="fuaim">
+  <line x1="70" y1="320" x2="130" y2="320"/>
+</g>
+
+<!-- E / U -->
+
+<g class="ceol">
+  <line x1="70" y1="440" x2="130" y2="440"/>
+  <line x1="70" y1="455" x2="130" y2="455"/>
+  <line x1="70" y1="470" x2="130" y2="470"/>
+  <line x1="70" y1="485" x2="130" y2="485"/>
+</g>
+
+<g class="fuaim">
+  <line x1="70" y1="440" x2="130" y2="440"/>
+  <line x1="70" y1="455" x2="130" y2="455"/>
+  <line x1="70" y1="470" x2="130" y2="470"/>
+</g>
+
+<!-- C / F -->
+
+<g class="ceol">
+  <line x1="100" y1="560" x2="60" y2="560"/>
+  <line x1="100" y1="575" x2="60" y2="575"/>
+  <line x1="100" y1="590" x2="60" y2="590"/>
+  <line x1="100" y1="605" x2="60" y2="605"/>
+</g>
+
+<g class="fuaim">
+  <line x1="100" y1="560" x2="140" y2="560"/>
+  <line x1="100" y1="575" x2="140" y2="575"/>
+  <line x1="100" y1="590" x2="140" y2="590"/>
+</g>
+
+<!-- ================= -->
+
+<!-- INSULAR ORNAMENT -->
+
+<!-- ================= -->
+
+<g class="ornament">
+
+<!-- Kells spiral -->
+
+<path d="M120 120 q20 20 0 40 q-20 20 0 40"/>
+
+<!-- trumpet curve -->
+
+<path d="M120 300 q30 -10 10 -30 q-20 -20 10 -30"/>
+
+<!-- Lindisfarne knot -->
+
+<path d="M110 500 q10 -10 20 0 q-10 10 -20 0 q10 -10 20 0"/>
+
+<!-- terminal flourish -->
+
+<path d="M120 700 q20 -10 30 10 q-20 20 -40 0"/>
+
+</g>
+
+</svg>
+
+</div>
+
+<div class="viewer-callout">
+  <h2>Reference Viewer</h2>
+  <p>The Ogham design now has its own reference viewer, including the Céol agus fuaim source image used alongside this layout study.</p>
+  <a href="ogham-viewer.html">Open Ogham Reference Viewer</a>
+</div>
+
+<div class="notes">
+  <h2>Design Note</h2>
+  <p>This page is now treated as a second tattoo design option in the project, so it can be viewed alongside the Bran &amp; Sce&oacute;lang brief rather than being buried as a separate experiment.</p>
+</div>
+
+</div>
+
+<script>
+function setMode(mode, evt) {
+  document.body.className = mode;
+  document.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+  evt.target.classList.add("active");
+}
+
+function togglePalette() {
+  document.body.classList.toggle("earth");
+}
+
+function toggleOrnament() {
+  document.body.classList.toggle("showOrnament");
+}
+
+function toggleStencil() {
+  document.body.classList.toggle("stencil");
+}
+
+/* Scroll reveal */
+const ornamentPaths = document.querySelectorAll(".ornament path");
+
+window.addEventListener("scroll", () => {
+  if (document.body.classList.contains("stencil")) return;
+
+  const scrollY = window.scrollY;
+  const height = document.body.scrollHeight - window.innerHeight;
+  const progress = scrollY / height;
+
+  ornamentPaths.forEach((p, i) => {
+    const delay = i * 0.15;
+    const visible = progress > delay;
+
+    p.style.opacity = visible ? 1 : 0;
+    p.style.transform = visible
+      ? "translateY(0) scale(1)"
+      : "translateY(10px) scale(0.95)";
+  });
+});
+</script>
+
+</body>
+</html>

@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tattoo Design Viewer</title>
+<title>Céol + Fuaim Reference Viewer</title>
 <style>
   :root {
-    --bg: #efe8da;
-    --panel: #fffaf0;
+    --bg: #f1eadf;
+    --panel: #fffaf1;
     --ink: #1f1a16;
-    --muted: #6b6358;
-    --line: #d6cab5;
+    --muted: #655b4e;
+    --line: #d7c9b0;
     --gold: #b99757;
-    --accent: #7f4b22;
     --shadow: 0 16px 36px rgba(31, 26, 22, 0.12);
     --radius: 18px;
   }
@@ -24,12 +23,12 @@
     font-family: Georgia, "Times New Roman", serif;
     color: var(--ink);
     background:
-      radial-gradient(circle at top left, rgba(185, 151, 87, 0.16), transparent 28%),
-      linear-gradient(180deg, #f6f0e4 0%, var(--bg) 100%);
+      radial-gradient(circle at top left, rgba(185, 151, 87, 0.15), transparent 28%),
+      linear-gradient(180deg, #f7f1e6 0%, var(--bg) 100%);
   }
 
   .wrap {
-    max-width: 1320px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 28px 24px 40px;
   }
@@ -40,11 +39,12 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 22px;
+    flex-wrap: wrap;
   }
 
   .eyebrow {
     margin: 0 0 6px;
-    color: var(--accent);
+    color: #86602c;
     text-transform: uppercase;
     letter-spacing: .08em;
     font-size: .85rem;
@@ -52,7 +52,7 @@
 
   h1 {
     margin: 0;
-    font-size: clamp(2rem, 4vw, 3.1rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.05;
   }
 
@@ -112,8 +112,7 @@
     align-content: start;
   }
 
-  .sidebar h2,
-  .stage h2 {
+  .sidebar h2 {
     margin: 0;
     font-size: 1.15rem;
   }
@@ -223,7 +222,6 @@
   @media (max-width: 980px) {
     .layout { grid-template-columns: 1fr; }
     .caption { grid-template-columns: 1fr; }
-    .topbar { align-items: flex-start; flex-direction: column; }
   }
 </style>
 </head>
@@ -231,35 +229,35 @@
   <div class="wrap">
     <div class="topbar">
       <div>
-        <p class="eyebrow">Shared Viewer</p>
-        <h1>Tattoo Design Viewer</h1>
-        <p class="lede">Use this viewer for the Bran &amp; Sce&oacute;lang reference set, or jump directly to the separate Céol + Fuaim Ogham design page to compare the two tattoo directions.</p>
+        <p class="eyebrow">Ogham Viewer</p>
+        <h1>Céol + Fuaim Reference Viewer</h1>
+        <p class="lede">This viewer is dedicated to the Ogham tattoo direction and includes the current Céol agus fuaim reference image used to support the standalone design page.</p>
       </div>
       <div class="top-actions">
-        <a class="nav-link" href="index.html">Open Hounds Design</a>
         <a class="nav-link" href="ogham.html">Open Ogham Design</a>
-        <a class="raw-link" id="rawLink" href="img/image.png" target="_blank" rel="noopener noreferrer">Open Raw File</a>
+        <a class="nav-link" href="index.html">Open Hounds Design</a>
+        <a class="raw-link" id="rawLink" href="img/céol agus fuaim.png" target="_blank" rel="noopener noreferrer">Open Raw File</a>
       </div>
     </div>
 
     <div class="layout">
       <aside class="panel sidebar">
-        <h2>Available Hound Images</h2>
-        <p>Click any option to swap the hounds reference image and its description.</p>
+        <h2>Available Ogham Images</h2>
+        <p>Select the reference image to view it with the current notes for this tattoo direction.</p>
         <div class="image-list" id="imageList"></div>
       </aside>
 
       <main class="panel stage">
         <div class="viewer-frame">
-          <img id="viewerImage" src="img/image.png" alt="Main concept image" />
+          <img id="viewerImage" src="img/céol agus fuaim.png" alt="Céol agus fuaim reference image" />
         </div>
         <div class="caption">
           <div>
-            <h3 id="viewerTitle">Main concept</h3>
-            <p id="viewerDescription">The most polished concept pass, used as the primary visual reference for the brief and overall composition.</p>
+            <h3 id="viewerTitle">Céol agus fuaim reference</h3>
+            <p id="viewerDescription">The core reference image for the Céol + Fuaim direction, kept in its own viewer so the Ogham concept has a dedicated visual reference track separate from the hounds project.</p>
             <div class="meta">
-              <span class="pill" id="viewerFile">img/image.png</span>
-              <span class="pill" id="viewerShape">1536 x 1024</span>
+              <span class="pill" id="viewerFile">img/céol agus fuaim.png</span>
+              <span class="pill" id="viewerShape">Reference image</span>
             </div>
           </div>
         </div>
@@ -270,52 +268,20 @@
 <script>
 const images = [
   {
-    id: 'main',
-    title: 'Main concept',
-    file: 'img/image.png',
-    size: '1536 x 1024',
-    short: 'Primary reference image',
-    description: 'The most polished concept pass, used as the primary visual reference for the brief and overall composition.'
+    id: 'ceol-agus-fuaim',
+    title: 'Céol agus fuaim reference',
+    file: 'img/céol agus fuaim.png',
+    size: '2048 x 1074',
+    short: 'Primary Ogham reference',
+    description: 'The core reference image for the Céol + Fuaim direction, kept in its own viewer so the Ogham concept has a dedicated visual reference track separate from the hounds project.'
   },
   {
-    id: 'dara',
-    title: 'Dara reference',
-    file: 'img/dara.jpg',
-    size: '1024 x 872',
-    short: 'Reference motif image',
-    description: 'A standalone Dara-related reference image that can be used for comparison, inspiration, or to contrast against the current direction where the central Dara motif is intentionally excluded.'
-  },
-  {
-    id: 'hounds-cuchlain',
-    title: 'Hounds of Cuchlain',
-    file: 'img/hounds of cuchlain.jpg',
-    size: '1200 x 1200',
-    short: 'Square hound reference',
-    description: 'A square-format hound reference image that is useful for comparing symmetry, ornament density, and how paired dogs are handled in a more centered composition.'
-  },
-  {
-    id: 'hound-hare',
-    title: 'Hound and hare',
-    file: 'img/hound and hare.jpg',
-    size: '2560 x 2472',
-    short: 'Narrative animal reference',
-    description: 'A larger animal reference image that offers a useful comparison for motion, chase energy, and how negative space can help separate figures within a busy ornamental layout.'
-  },
-  {
-    id: 'hounds',
-    title: 'Hounds',
-    file: 'img/hounds.jpg',
-    size: '1000 x 1000',
-    short: 'General hound reference',
-    description: 'A general hound reference image that helps compare body rhythm, decorative treatment, and how the style reads when reduced to a simple square presentation.'
-  },
-  {
-    id: 'hounds-example',
-    title: 'Hounds example tattoo',
-    file: 'img/hounds-example.jpg',
-    size: '448 x 318',
-    short: 'Example tattoo placement photo',
-    description: 'A real tattoo example showing a broad upper-back composition, useful for comparing how a paired-animal design can spread across the shoulders and read at body scale.'
+    id: 'ogham-example',
+    title: 'Ogham example tattoo',
+    file: 'img/ogham-example.jpg',
+    size: '3072 x 2993',
+    short: 'Example tattoo photo',
+    description: 'A tattoo example image for the Ogham direction, included so the concept can be compared against an actual in-skin reference alongside the source artwork.'
   }
 ];
 

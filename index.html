@@ -40,6 +40,41 @@
     align-items: start;
   }
 
+  .design-switcher {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+
+  .design-tile {
+    padding: 20px;
+    background:
+      linear-gradient(145deg, rgba(200, 165, 90, 0.10), transparent 45%),
+      #fffefb;
+  }
+
+  .design-tile h2 {
+    margin-bottom: 8px;
+  }
+
+  .design-tile p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .design-tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff9ec;
+    color: var(--muted);
+    font-size: .84rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
   .card {
     background: color-mix(in srgb, var(--panel) 92%, white 8%);
     border: 1px solid var(--line);
@@ -216,6 +251,7 @@
 
   @media (max-width: 960px) {
     .hero,
+    .design-switcher,
     .grid,
     .meta,
     .placement,
@@ -227,6 +263,26 @@
 </head>
 <body>
   <div class="wrap">
+    <section class="design-switcher">
+      <div class="card design-tile">
+        <span class="design-tag">Design One</span>
+        <h2>Bran &amp; Sce&oacute;lang</h2>
+        <p class="lede">The hounds brief remains the primary concept page, focused on the horizontal paired-dog composition and placement notes.</p>
+        <div class="viewer-actions">
+          <a class="viewer-link" href="index.html">Viewing Hounds Design</a>
+        </div>
+      </div>
+      <div class="card design-tile">
+        <span class="design-tag">Design Two</span>
+        <h2>Céol + Fuaim Ogham</h2>
+        <p class="lede">A separate ogham-based tattoo design system that can be viewed alongside the hounds concept as its own standalone design direction.</p>
+        <div class="viewer-actions">
+          <a class="viewer-link" href="ogham.html">Open Ogham Design</a>
+          <a class="viewer-link" href="ogham-viewer.html">Open Ogham Viewer</a>
+        </div>
+      </div>
+    </section>
+
     <section class="hero">
       <div class="card viewer-card">
         <figure class="main-art">
