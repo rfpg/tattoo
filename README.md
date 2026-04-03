@@ -5,7 +5,10 @@ This repository contains a small static tattoo-design site with two separate des
 ## Pages
 
 - `index.html`
-  Main `Bran & Sceolang` design brief. This is the hounds-focused homepage with the primary concept image, placement logic, and links into the related viewers.
+  Main landing page for the tattoo project. It now shows only the two design options and links into their dedicated pages.
+
+- `hounds.html`
+  Standalone `Bran & Sceolang` design brief page with the primary concept image, placement logic, and the hounds-specific viewer link.
 
 - `viewer.html`
   Shared image viewer for the hounds design direction. It includes the main concept image, supporting hound references, and the example tattoo photo.
@@ -46,7 +49,8 @@ The `img/` folder currently includes:
 
 This project is fully static and intended to work well on GitHub Pages.
 
-- Open `index.html` for the hounds design
+- Open `index.html` for the design chooser
+- Open `hounds.html` for the hounds design
 - Open `ogham.html` for the Ogham design
 - Use `viewer.html` and `ogham-viewer.html` for the corresponding reference viewers
 

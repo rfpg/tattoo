@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bran &amp; Sce&oacute;lang Tattoo Design</title>
+<style>
+  :root {
+    --bg: #f4f1e8;
+    --panel: #fbf8f0;
+    --ink: #1e1b18;
+    --muted: #6d655b;
+    --line: #d8cfbf;
+    --gold: #c8a55a;
+    --scarlet: #a33a2a;
+    --emerald: #2c8a57;
+    --lapis: #3568a8;
+    --shadow: 0 12px 30px rgba(30, 27, 24, 0.10);
+    --radius: 18px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at top, rgba(200, 165, 90, 0.10), transparent 30%),
+      linear-gradient(180deg, #f7f4ec 0%, var(--bg) 100%);
+  }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+  .site-nav {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 18px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .card {
+    background: color-mix(in srgb, var(--panel) 92%, white 8%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .viewer-card {
+    padding: 24px;
+    background:
+      linear-gradient(160deg, rgba(200, 165, 90, 0.12), transparent 45%),
+      #fffefb;
+  }
+
+  .viewer-card h2 { margin-bottom: 10px; }
+  .viewer-card p:last-of-type { margin-bottom: 0; }
+  .main-art {
+    margin: 0 0 18px;
+    background: #fffef9;
+    border: 1px solid #e4d7c0;
+    border-radius: 16px;
+    padding: 16px;
+    overflow: hidden;
+  }
+  .main-art img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+  }
+  .main-art figcaption {
+    margin-top: 10px;
+    text-align: center;
+    color: var(--muted);
+    font-size: .94rem;
+  }
+  .viewer-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .viewer-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid #b99757;
+    background: #f5ead3;
+    color: var(--ink);
+    padding: 11px 16px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .viewer-link:hover { background: #f0e1c1; }
+  .brief { padding: 24px; }
+
+  h1, h2, h3 { margin: 0 0 12px; line-height: 1.1; }
+  h1 { font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: .01em; }
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  p { line-height: 1.55; margin: 0 0 12px; }
+  .lede { font-size: 1.05rem; color: #3d372f; }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  button,
+  .chip {
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: white;
+    color: var(--ink);
+    padding: 10px 14px;
+    font: inherit;
+  }
+
+  button { cursor: pointer; transition: transform .15s ease, background .15s ease; }
+  button:hover { transform: translateY(-1px); background: #fffaf0; }
+  .chip.active { background: #f7efe0; border-color: #cdb88d; }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .meta .mini { padding: 14px; }
+  .mini strong { display: block; font-size: .95rem; margin-bottom: 4px; }
+  .mini span { color: var(--muted); font-size: .94rem; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .section { padding: 22px; }
+  ul { margin: 0; padding-left: 20px; line-height: 1.6; }
+
+  .palette { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+
+  .swatch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fffefb;
+  }
+
+  .dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .accordion { margin-top: 10px; display: grid; gap: 10px; }
+  details { border: 1px solid var(--line); border-radius: 14px; background: #fffefb; overflow: hidden; }
+  summary { list-style: none; cursor: pointer; padding: 14px 16px; font-weight: 700; }
+  summary::-webkit-details-marker { display: none; }
+  details .content { padding: 0 16px 16px; color: #433c34; }
+
+  .placement {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .placement .option {
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fffefb;
+    cursor: pointer;
+  }
+
+  .placement .option.active { outline: 2px solid #ccb27b; background: #fff9ec; }
+  .placement-demo {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .placement-card {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fffefb;
+    overflow: hidden;
+  }
+  .placement-card img {
+    width: 100%;
+    display: block;
+    background: #f3ecde;
+  }
+  .placement-copy {
+    padding: 16px;
+  }
+  .placement-copy h3 {
+    margin-bottom: 8px;
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+  }
+  .note { color: var(--muted); font-size: .95rem; }
+  .footer { text-align: center; color: var(--muted); padding: 26px 0 8px; font-size: .94rem; }
+
+  .pillrow { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .pill { background: #fffefb; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; font-size: .92rem; }
+
+  @media (max-width: 960px) {
+    .hero,
+    .grid,
+    .meta,
+    .placement,
+    .placement-demo {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav" aria-label="Site navigation">
+      <a class="viewer-link" href="https://rfpg.github.io/">Back to Portfolio</a>
+    </nav>
+
+    <section class="hero">
+      <div class="card viewer-card">
+        <figure class="main-art">
+          <img src="img/image.png" alt="Bran and Sce&oacute;lang main design" />
+          <figcaption>Main concept artwork</figcaption>
+        </figure>
+        <h2>Main Design</h2>
+        <p class="lede">The primary concept sits front and center on its own design page. Use the separate viewer to compare it against the remaining reference images in the project.</p>
+        <p class="note">The viewer includes the current image set from <code>img/</code>, including the main concept and the newer reference files still in the project.</p>
+        <div class="viewer-actions">
+          <a class="viewer-link" href="viewer.html" target="_blank" rel="noopener noreferrer">Open Image Viewer</a>
+        </div>
+      </div>
+
+      <aside class="card brief">
+        <h1>Bran &amp; Sce&oacute;lang</h1>
+        <p class="lede">Tattoo design brief for a horizontal, Hiberno-Saxon inspired composition focused on Fionn mac Cumhaill's two hounds. This page is self-contained and ready for GitHub Pages.</p>
+        <div class="pillrow">
+          <span class="pill">Horizontal composition</span>
+          <span class="pill">Insular / Hiberno-Saxon</span>
+          <span class="pill">Two hounds only</span>
+          <span class="pill">Leaves included</span>
+        </div>
+        <div class="actions">
+          <button id="toggleTone">Switch to tattooer notes</button>
+          <button id="copyBrief">Copy brief text</button>
+          <button id="printPage">Print / Save PDF</button>
+        </div>
+        <div class="meta">
+          <div class="card mini"><strong>Orientation</strong><span>Horizontal, slight natural arc only if needed</span></div>
+          <div class="card mini"><strong>Primary fit</strong><span>Upper shoulders or single shoulder</span></div>
+          <div class="card mini"><strong>Main focus</strong><span>The hounds and their interaction</span></div>
+          <div class="card mini"><strong>Not included</strong><span>No Dara knot, no central logo</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <div class="card section">
+        <h2>Design direction</h2>
+        <div id="briefText">
+          <p><strong>Concept:</strong> Bran and Sce&oacute;lang in a manuscript-inspired Insular style, with the composition carried by their bodies, paws, tails, and surrounding leaves rather than by a central symbol.</p>
+          <p><strong>Character balance:</strong> Bran sits on the left with darker visual weight; Sce&oacute;lang sits on the right, slightly lighter and a touch more lifted in posture.</p>
+          <p><strong>Mood:</strong> Tense but not chaotic, alive, noble, mythic, and readable at a distance.</p>
+        </div>
+
+        <h3>Palette</h3>
+        <div class="palette">
+          <div class="swatch"><span class="dot" style="background:#1d1b1a"></span>Black / charcoal</div>
+          <div class="swatch"><span class="dot" style="background:#b8b1a6"></span>Grey wash</div>
+          <div class="swatch"><span class="dot" style="background:#d1b06d"></span>Muted gold</div>
+          <div class="swatch"><span class="dot" style="background:#aa3d2f"></span>Scarlet accents</div>
+          <div class="swatch"><span class="dot" style="background:#32b95f"></span>Leaf green (brighter)</div>
+          <div class="swatch"><span class="dot" style="background:#2d6db7"></span>Lapis blue eye</div>
+          <div class="swatch"><span class="dot" style="background:#1f8d4f"></span>Emerald eye</div>
+          <div class="swatch"><span class="dot" style="background:#d26d74"></span>Tongues: natural pink/red</div>
+        </div>
+      </div>
+
+      <div class="card section">
+        <h2>Placement logic</h2>
+        <p class="note">Select an option to show the preferred fit.</p>
+        <div class="placement" id="placementChooser">
+          <div class="option active" data-copy="Upper shoulders are the preferred fit. The design stays mostly horizontal, with just enough arc to follow anatomy naturally."><strong>Upper shoulders</strong><br><span class="note">Preferred</span></div>
+          <div class="option" data-copy="A single shoulder cap version works if the composition is compressed and simplified slightly, with the tails wrapping downward more."><strong>Single shoulder</strong><br><span class="note">Compressed variation</span></div>
+          <div class="option" data-copy="A shoulder-to-forearm version works as a more linear adaptation, carrying the design down the arm instead of sitting only on the underside."><strong>Shoulder to forearm</strong><br><span class="note">Linear adaptation</span></div>
+        </div>
+        <p id="placementText" style="margin-top:14px;">Upper shoulders are the preferred fit. The design stays mostly horizontal, with just enough arc to follow anatomy naturally.</p>
+        <p class="note" style="margin-top:18px;">The placement example below uses the tighter draft image as an across-both-shoulders reference.</p>
+        <div class="placement-demo">
+          <div class="placement-card">
+            <img src="img/placement-shoulder-demo.png" alt="Across both shoulders placement demo from the draft sheet" />
+            <div class="placement-copy">
+              <h3>Across Both Shoulders</h3>
+              <p>A tighter across-the-shoulders adaptation from the draft sheet, showing the hounds spread across both shoulders rather than sitting on just one shoulder.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card section">
+        <h2>Refined brief</h2>
+        <div class="accordion">
+          <details open>
+            <summary>Client-facing summary</summary>
+            <div class="content">
+              <ul>
+                <li>Two hounds only, Bran on the left, Sce&oacute;lang on the right.</li>
+                <li>Horizontal composition with manuscript-style leaves woven around and beneath them.</li>
+                <li>Hiberno-Saxon / Insular influence without becoming too knot-dense.</li>
+                <li>Bran darker with emerald eye; Sce&oacute;lang lighter with lapis eye.</li>
+                <li>Muted gold and scarlet accents; leaf green may pop more brightly.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary>Tattooer notes</summary>
+            <div class="content">
+              <ul>
+                <li>Primary outline bold and stable; internal structure medium weight.</li>
+                <li>Keep negative space between paws, heads, and tail spirals.</li>
+                <li>Avoid dense center fill or unreadable knot masses.</li>
+                <li>Use skin breaks for highlights where possible.</li>
+                <li>Patterning should support the silhouette, not overpower it.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary>What to avoid</summary>
+            <div class="content">
+              <ul>
+                <li>No central logo or knot dominating the design.</li>
+                <li>No wrap-to-chest composition.</li>
+                <li>No over-symmetrized logo stiffness.</li>
+                <li>No tight micro-detail that will blur over time.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="card section">
+        <h2>Quick copy block</h2>
+        <p class="note">This is the exact text used by the copy button.</p>
+        <div class="card" style="padding:16px; background:#fffefb;">
+          <p id="copySource" style="white-space:pre-wrap; margin:0;">Bran and Sce&oacute;lang in a Hiberno-Saxon / Insular manuscript style, focused entirely on the two hounds. Horizontal composition preferred. No Dara knot or central logo. Bran on the left: darker, black with grey patterning, emerald green eye. Sce&oacute;lang on the right: lighter, grey/white with black interspersed, lapis blue eye. Palette is primarily black and grey with restrained Insular accents: muted gold, scarlet red, and brighter green leaves. Tongues should remain a natural pink/red. The design should stay breathable, readable, and tattooable, with leaves included and enough negative space for longevity.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">Built as a single-file static page for GitHub Pages deployment.</div>
+  </div>
+<script>
+const toggleBtn = document.getElementById('toggleTone');
+const briefText = document.getElementById('briefText');
+let tattooerMode = false;
+
+const modes = {
+  client: `
+    <p><strong>Concept:</strong> Bran and Sce&oacute;lang in a manuscript-inspired Insular style, with the composition carried by their bodies, paws, tails, and surrounding leaves rather than by a central symbol.</p>
+    <p><strong>Character balance:</strong> Bran sits on the left with darker visual weight; Sce&oacute;lang sits on the right, slightly lighter and a touch more lifted in posture.</p>
+    <p><strong>Mood:</strong> Tense but not chaotic, alive, noble, mythic, and readable at a distance.</p>`,
+  tattooer: `
+    <p><strong>Execution:</strong> Keep the silhouette clean and horizontal, with bold outer contour, medium interior structure, and restrained patterning.</p>
+    <p><strong>Breathing room:</strong> Preserve open negative space between paws, around the tails, and under the heads to prevent the center from clogging up over time.</p>
+    <p><strong>Aging:</strong> Let the leaves and accent color act as rhythm, not fill. Avoid dense interlace at the meeting point.</p>`
+};
+
+toggleBtn.addEventListener('click', () => {
+  tattooerMode = !tattooerMode;
+  briefText.innerHTML = tattooerMode ? modes.tattooer : modes.client;
+  toggleBtn.textContent = tattooerMode ? 'Switch to client-facing brief' : 'Switch to tattooer notes';
+});
+
+document.getElementById('copyBrief').addEventListener('click', async () => {
+  const text = document.getElementById('copySource').innerText;
+  try {
+    await navigator.clipboard.writeText(text);
+    alert('Brief copied to clipboard.');
+  } catch (e) {
+    alert('Clipboard copy failed on this device. You can still select and copy the text manually.');
+  }
+});
+
+document.getElementById('printPage').addEventListener('click', () => window.print());
+
+const options = [...document.querySelectorAll('.option')];
+const placementText = document.getElementById('placementText');
+options.forEach((opt) => opt.addEventListener('click', () => {
+  options.forEach((option) => option.classList.remove('active'));
+  opt.classList.add('active');
+  placementText.textContent = opt.dataset.copy;
+}));
+</script>
+</body>
+</html>
