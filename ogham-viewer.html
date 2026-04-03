@@ -35,11 +35,13 @@
 
   .topbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
     gap: 16px;
     margin-bottom: 22px;
     flex-wrap: wrap;
+    text-align: center;
   }
 
   .eyebrow {
@@ -67,6 +69,7 @@
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .nav-link,
@@ -110,6 +113,7 @@
     display: grid;
     gap: 12px;
     align-content: start;
+    text-align: center;
   }
 
   .sidebar h2 {
@@ -131,7 +135,7 @@
 
   .image-button {
     width: 100%;
-    text-align: left;
+    text-align: center;
     border: 1px solid var(--line);
     background: #fffdf7;
     border-radius: 14px;
@@ -168,6 +172,11 @@
 
   .stage {
     padding: 18px;
+  }
+
+  .stage > h2,
+  .stage > p {
+    text-align: center;
   }
 
   .viewer-frame {
@@ -261,11 +270,16 @@
     color: #3f372f;
   }
 
+  .caption > div {
+    text-align: center;
+  }
+
   .meta {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 14px;
+    justify-content: center;
   }
 
   .pill {
