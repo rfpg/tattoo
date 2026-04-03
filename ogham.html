@@ -7,6 +7,17 @@
 <title>Céol + Fuaim Ogham Tattoo Design</title>
 
 <style>
+:root {
+  --ink:#111111;
+  --ceol-color:#111111;
+  --fuaim-color:#111111;
+  --line:#d6cbb4;
+  --panel:#fffdf8;
+  --panel-soft:#fffaf2;
+  --button:#fffaf0;
+  --button-hover:#f8f0df;
+}
+
 body {
   margin:0;
   font-family: Georgia, serif;
@@ -68,7 +79,7 @@ h1 {
   padding:10px 14px;
   border:1px solid #bcae91;
   border-radius:999px;
-  background:#fffaf0;
+  background:var(--button);
   color:#111;
   text-decoration:none;
   font-weight:700;
@@ -81,7 +92,7 @@ h1 {
   padding:10px 14px;
   border:1px solid #bcae91;
   border-radius:999px;
-  background:#fffaf0;
+  background:var(--button);
   color:#111;
   text-decoration:none;
   font-weight:700;
@@ -114,7 +125,7 @@ button {
   padding:10px 16px;
   border:1px solid #bcae91;
   border-radius:999px;
-  background:#fffaf0;
+  background:var(--button);
   color:#111;
   font:inherit;
   cursor:pointer;
@@ -123,7 +134,7 @@ button {
 
 button:hover {
   transform:translateY(-1px);
-  background:#f8f0df;
+  background:var(--button-hover);
 }
 
 button.active {
@@ -143,111 +154,92 @@ button.active {
 .svg-wrap {
   display:flex;
   justify-content:center;
+  align-items:center;
+  position:relative;
   margin-top:22px;
   padding:24px;
-  border:1px solid #d6cbb4;
+  border:1px solid var(--line);
   border-radius:20px;
-  background:#fffdf8;
+  background:var(--panel);
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.svg-wrap.is-animating {
+  border-color:#bcae91;
+  box-shadow:0 0 0 6px rgba(188, 174, 145, 0.12);
+}
+
+.stage-badge {
+  position:absolute;
+  top:16px;
+  right:16px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:112px;
+  padding:8px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255, 253, 248, 0.96);
+  color:#5a4f3e;
+  font-size:.9rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
 }
 
 /* BASE */
-.spine { stroke:black; stroke-width:6; }
+.spine { stroke:var(--ink); stroke-width:6; }
 .fuaim,
 .ceol {
-  stroke:black;
+  fill:none;
   stroke-width:3;
   opacity:1;
-  transition: opacity 1.25s ease-in-out;
+  transition: opacity 1.35s ease-in-out, stroke 0.3s ease;
 }
 
-/* LAYER MODES */
-.modeB .ceol { opacity:0; }
-.modeC .fuaim { opacity:0; }
+.fuaim { stroke:var(--fuaim-color); }
+.ceol { stroke:var(--ceol-color); }
 
-.palette-section {
+.svg-wrap.show-both .ceol,
+.svg-wrap.show-both .fuaim {
+  opacity:1;
+}
+
+.svg-wrap.show-fuaim .ceol {
+  opacity:0;
+}
+
+.svg-wrap.show-ceol .fuaim {
+  opacity:0;
+}
+
+.color-tools {
   margin-top:22px;
   padding:18px;
-  border:1px solid #d6cbb4;
+  border:1px solid var(--line);
   border-radius:18px;
-  background:#fffdf8;
+  background:var(--panel);
   text-align:center;
 }
 
-.palette-section h2 {
+.color-tools h2 {
   margin:0 0 10px;
   font-size:1.1rem;
 }
 
-.palette-section > p {
+.color-tools > p {
   margin:0 auto 18px;
   max-width:720px;
   line-height:1.6;
   color:#3a3329;
 }
 
-.palette-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.palette-card {
-  padding:18px;
-  border:1px solid #d6cbb4;
-  border-radius:18px;
-  background:#fffaf2;
-}
-
-.palette-card h3 {
-  margin:0 0 12px;
-  font-size:1.02rem;
-}
-
-.palette-card p {
-  margin:0;
-  line-height:1.6;
-  color:#4b4134;
-}
-
-.color-wheel {
-  width:190px;
-  aspect-ratio:1;
-  margin:0 auto 16px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  border:1px solid #d6cbb4;
-  box-shadow: inset 0 0 0 8px rgba(255, 250, 240, 0.55);
-}
-
-.color-wheel span {
-  width:46%;
-  height:46%;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:#fffdf8;
-  border:1px solid #d6cbb4;
-  font-weight:700;
-  letter-spacing:.03em;
-}
-
-.ceol-wheel {
-  background:conic-gradient(
-    #3568a8 0deg 95deg,
-    #2c8a57 95deg 180deg,
-    #c8a55a 180deg 275deg,
-    #3a3329 275deg 360deg
-  );
-}
-
-.fuaim-wheel {
-  background:conic-gradient(
-    #a33a2a 0deg 95deg,
-    #c8a55a 95deg 180deg,
-    #45663e 180deg 265deg,
-    #3a3329 265deg 360deg
-  );
+.tool-actions {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
 }
 
 .swatches {
@@ -255,7 +247,7 @@ button.active {
   flex-wrap:wrap;
   justify-content:center;
   gap:10px;
-  margin-top:14px;
+  margin:14px 0 18px;
 }
 
 .swatch {
@@ -263,9 +255,9 @@ button.active {
   align-items:center;
   gap:8px;
   padding:8px 12px;
-  border:1px solid #d6cbb4;
+  border:1px solid var(--line);
   border-radius:999px;
-  background:#fffdf8;
+  background:var(--panel);
   color:#4b4134;
   font-size:.94rem;
 }
@@ -275,6 +267,135 @@ button.active {
   height:12px;
   border-radius:50%;
   border:1px solid rgba(0, 0, 0, 0.12);
+}
+
+.swatch-value {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size:.88rem;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+}
+
+.color-modal[hidden] {
+  display:none;
+}
+
+.color-modal {
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(25, 21, 17, 0.46);
+}
+
+.color-panel {
+  width:min(760px, 100%);
+  max-height:min(88vh, 860px);
+  overflow:auto;
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--panel);
+  box-shadow:0 18px 48px rgba(17, 17, 17, 0.24);
+}
+
+.color-panel h2 {
+  margin:0 0 10px;
+  text-align:center;
+}
+
+.color-panel > p {
+  margin:0 auto 18px;
+  max-width:620px;
+  text-align:center;
+  line-height:1.6;
+  color:#4b4134;
+}
+
+.color-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.color-card {
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--panel-soft);
+}
+
+.color-card h3 {
+  margin:0 0 12px;
+}
+
+.color-picker-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:14px;
+}
+
+.color-picker-row label {
+  font-weight:700;
+  color:#3a3329;
+}
+
+.color-picker-row input[type="color"] {
+  width:64px;
+  height:44px;
+  padding:0;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
+
+.color-readout {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:110px;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--panel);
+  color:#4b4134;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size:.9rem;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+}
+
+.preset-label {
+  margin:0 0 10px;
+  color:#5a4f3e;
+  font-size:.94rem;
+}
+
+.preset-grid {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.preset-button {
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:#111;
+}
+
+.modal-actions {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
 }
 
 .notes {
@@ -302,7 +423,7 @@ button.active {
     padding-bottom:80vh;
   }
 
-  .palette-grid {
+  .color-grid {
     grid-template-columns:1fr;
   }
 
@@ -310,13 +431,18 @@ button.active {
     width:100%;
     height:auto;
   }
+
+  .stage-badge {
+    position:static;
+    margin-bottom:12px;
+  }
 }
 
 </style>
 
 </head>
 
-<body class="modeA">
+<body>
 
 <div class="container">
 
@@ -338,16 +464,17 @@ button.active {
 </div>
 
 <div class="controls">
-  <button type="button" class="mode-button active" data-mode-button="modeA" onclick="setMode('modeA')">Both</button>
-  <button type="button" class="mode-button" data-mode-button="modeB" onclick="setMode('modeB')">Fuaim</button>
-  <button type="button" class="mode-button" data-mode-button="modeC" onclick="setMode('modeC')">Céol</button>
+  <button type="button" class="mode-button active" data-mode-button="both" onclick="setMode('both')">Both</button>
+  <button type="button" class="mode-button" data-mode-button="fuaim" onclick="setMode('fuaim')">Fuaim</button>
+  <button type="button" class="mode-button" data-mode-button="ceol" onclick="setMode('ceol')">Céol</button>
   <button type="button" class="mode-button" data-mode-button="animate" onclick="startAnimation()">Animate</button>
 </div>
 <p class="mode-note" id="modeNote" aria-live="polite">Both: Showing the full combined column with both words visible together.</p>
 
-<div class="svg-wrap">
+<div class="svg-wrap show-both" id="oghamStage">
+<div class="stage-badge" id="stageBadge">Both</div>
 
-<svg viewBox="0 0 200 800" width="200">
+<svg id="oghamSvg" viewBox="0 0 200 800" width="200">
 
 <!-- Spine -->
 
@@ -421,35 +548,66 @@ button.active {
 
 </div>
 
-<div class="palette-section">
-  <h2>Color Wheels</h2>
-  <p>Each word can carry its own color emphasis while keeping the overall piece grounded in muted Hiberno-Saxon manuscript tones.</p>
-  <div class="palette-grid">
-    <div class="palette-card">
-      <h3>Céol</h3>
-      <div class="color-wheel ceol-wheel" aria-hidden="true">
-        <span>Céol</span>
-      </div>
-      <p>Céol leans cooler and more luminous, with lapis and emerald balanced by rustic gold and dark ink so it still reads as carved linework rather than ornament.</p>
-      <div class="swatches">
-        <span class="swatch"><span class="swatch-dot" style="background:#3568a8"></span>Lapis blue</span>
-        <span class="swatch"><span class="swatch-dot" style="background:#2c8a57"></span>Emerald green</span>
-        <span class="swatch"><span class="swatch-dot" style="background:#c8a55a"></span>Rustic gold</span>
-        <span class="swatch"><span class="swatch-dot" style="background:#3a3329"></span>Ink black</span>
-      </div>
+<div class="color-tools">
+  <h2>Live Word Colors</h2>
+  <p>Open the color controls to tweak the stroke color for each word directly in the browser. The linework updates live without changing the underlying Ogham layout.</p>
+  <div class="swatches">
+    <span class="swatch">
+      <span class="swatch-dot" id="ceolSwatch" style="background:#111111"></span>
+      Céol
+      <span class="swatch-value" id="ceolValue">#111111</span>
+    </span>
+    <span class="swatch">
+      <span class="swatch-dot" id="fuaimSwatch" style="background:#111111"></span>
+      Fuaim
+      <span class="swatch-value" id="fuaimValue">#111111</span>
+    </span>
+  </div>
+  <div class="tool-actions">
+    <button type="button" id="openColorModal">Open Word Colors</button>
+    <button type="button" id="resetColorsInline">Reset to Ink</button>
+  </div>
+</div>
+
+<div class="color-modal" id="colorModal" hidden>
+  <div class="color-panel" role="dialog" aria-modal="true" aria-labelledby="colorModalTitle">
+    <h2 id="colorModalTitle">Word Color Controls</h2>
+    <p>Use the browser color picker or the preset manuscript tones to tune <strong>Céol</strong> and <strong>Fuaim</strong> independently.</p>
+    <div class="color-grid">
+      <section class="color-card">
+        <h3>Céol</h3>
+        <div class="color-picker-row">
+          <label for="ceolColorInput">Line color</label>
+          <input id="ceolColorInput" type="color" value="#111111" />
+        </div>
+        <div class="color-readout" id="ceolReadout">#111111</div>
+        <p class="preset-label">Suggested manuscript tones</p>
+        <div class="preset-grid">
+          <button type="button" class="preset-button" data-word="ceol" data-color="#111111">Ink</button>
+          <button type="button" class="preset-button" data-word="ceol" data-color="#3568a8">Lapis</button>
+          <button type="button" class="preset-button" data-word="ceol" data-color="#2c8a57">Emerald</button>
+          <button type="button" class="preset-button" data-word="ceol" data-color="#c8a55a">Gold</button>
+        </div>
+      </section>
+      <section class="color-card">
+        <h3>Fuaim</h3>
+        <div class="color-picker-row">
+          <label for="fuaimColorInput">Line color</label>
+          <input id="fuaimColorInput" type="color" value="#111111" />
+        </div>
+        <div class="color-readout" id="fuaimReadout">#111111</div>
+        <p class="preset-label">Suggested manuscript tones</p>
+        <div class="preset-grid">
+          <button type="button" class="preset-button" data-word="fuaim" data-color="#111111">Ink</button>
+          <button type="button" class="preset-button" data-word="fuaim" data-color="#a33a2a">Scarlet</button>
+          <button type="button" class="preset-button" data-word="fuaim" data-color="#c8a55a">Gold</button>
+          <button type="button" class="preset-button" data-word="fuaim" data-color="#45663e">Moss</button>
+        </div>
+      </section>
     </div>
-    <div class="palette-card">
-      <h3>Fuaim</h3>
-      <div class="color-wheel fuaim-wheel" aria-hidden="true">
-        <span>Fuaim</span>
-      </div>
-      <p>Fuaim runs warmer, with scarlet oxide and gold carrying the energy, then moss green and charcoal pulling it back into an older, earthier manuscript palette.</p>
-      <div class="swatches">
-        <span class="swatch"><span class="swatch-dot" style="background:#a33a2a"></span>Scarlet red</span>
-        <span class="swatch"><span class="swatch-dot" style="background:#c8a55a"></span>Rustic gold</span>
-        <span class="swatch"><span class="swatch-dot" style="background:#45663e"></span>Moss green</span>
-        <span class="swatch"><span class="swatch-dot" style="background:#3a3329"></span>Charcoal ink</span>
-      </div>
+    <div class="modal-actions">
+      <button type="button" id="resetColorsModal">Reset to Ink</button>
+      <button type="button" id="closeColorModal">Done</button>
     </div>
   </div>
 </div>
@@ -464,19 +622,38 @@ button.active {
 <script>
 const modeButtons = Array.from(document.querySelectorAll(".mode-button"));
 const modeNote = document.getElementById("modeNote");
+const stageBadge = document.getElementById("stageBadge");
+const oghamStage = document.getElementById("oghamStage");
+const colorModal = document.getElementById("colorModal");
+const openColorModalButton = document.getElementById("openColorModal");
+const closeColorModalButton = document.getElementById("closeColorModal");
+const resetColorsInlineButton = document.getElementById("resetColorsInline");
+const resetColorsModalButton = document.getElementById("resetColorsModal");
+const ceolColorInput = document.getElementById("ceolColorInput");
+const fuaimColorInput = document.getElementById("fuaimColorInput");
+const ceolReadout = document.getElementById("ceolReadout");
+const fuaimReadout = document.getElementById("fuaimReadout");
+const ceolSwatch = document.getElementById("ceolSwatch");
+const fuaimSwatch = document.getElementById("fuaimSwatch");
+const ceolValue = document.getElementById("ceolValue");
+const fuaimValue = document.getElementById("fuaimValue");
+const presetButtons = Array.from(document.querySelectorAll(".preset-button"));
 const modeSequence = [
   {
-    id: "modeA",
+    id: "both",
+    stageClass: "show-both",
     label: "Both",
     note: "Showing the full combined column with both words visible together."
   },
   {
-    id: "modeB",
+    id: "fuaim",
+    stageClass: "show-fuaim",
     label: "Fuaim",
     note: "Showing only the Fuaim line set."
   },
   {
-    id: "modeC",
+    id: "ceol",
+    stageClass: "show-ceol",
     label: "Céol",
     note: "Showing only the Céol line set."
   }
@@ -497,7 +674,10 @@ function setModeText(label, note, isAnimating) {
 
 function applyMode(modeId, isAnimating = false) {
   const activeMode = modeSequence.find((entry) => entry.id === modeId) || modeSequence[0];
-  document.body.className = activeMode.id;
+  oghamStage.classList.remove("show-both", "show-fuaim", "show-ceol", "is-animating");
+  oghamStage.classList.add(activeMode.stageClass);
+  oghamStage.classList.toggle("is-animating", isAnimating);
+  stageBadge.textContent = isAnimating ? `Animating ${activeMode.label}` : activeMode.label;
   setModeText(activeMode.label, activeMode.note, isAnimating);
 }
 
@@ -528,8 +708,72 @@ function startAnimation() {
   animationTimer = window.setInterval(stepAnimation, 2300);
 }
 
-applyMode("modeA");
-setActiveButton("modeA");
+function setWordColor(word, color) {
+  const inputColor = color.toLowerCase();
+  const displayColor = inputColor.toUpperCase();
+  if (word === "ceol") {
+    document.documentElement.style.setProperty("--ceol-color", inputColor);
+    ceolColorInput.value = inputColor;
+    ceolReadout.textContent = displayColor;
+    ceolSwatch.style.background = inputColor;
+    ceolValue.textContent = displayColor;
+    return;
+  }
+
+  document.documentElement.style.setProperty("--fuaim-color", inputColor);
+  fuaimColorInput.value = inputColor;
+  fuaimReadout.textContent = displayColor;
+  fuaimSwatch.style.background = inputColor;
+  fuaimValue.textContent = displayColor;
+}
+
+function resetColors() {
+  setWordColor("ceol", "#111111");
+  setWordColor("fuaim", "#111111");
+}
+
+function openColorModal() {
+  colorModal.hidden = false;
+}
+
+function closeColorModal() {
+  colorModal.hidden = true;
+}
+
+ceolColorInput.addEventListener("input", (event) => {
+  setWordColor("ceol", event.target.value);
+});
+
+fuaimColorInput.addEventListener("input", (event) => {
+  setWordColor("fuaim", event.target.value);
+});
+
+presetButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setWordColor(button.dataset.word, button.dataset.color);
+  });
+});
+
+openColorModalButton.addEventListener("click", openColorModal);
+closeColorModalButton.addEventListener("click", closeColorModal);
+resetColorsInlineButton.addEventListener("click", resetColors);
+resetColorsModalButton.addEventListener("click", resetColors);
+
+colorModal.addEventListener("click", (event) => {
+  if (event.target === colorModal) {
+    closeColorModal();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !colorModal.hidden) {
+    closeColorModal();
+  }
+});
+
+resetColors();
+applyMode("both");
+setActiveButton("both");
 </script>
 
 </body>
