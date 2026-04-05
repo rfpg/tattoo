@@ -9,6 +9,7 @@
 <style>
 :root {
   --ink:#111111;
+  --spine-color:#111111;
   --ceol-color:#111111;
   --fuaim-color:#111111;
   --line:#d6cbb4;
@@ -189,7 +190,11 @@ button.active {
 }
 
 /* BASE */
-.spine { stroke:var(--ink); stroke-width:6; }
+.spine {
+  stroke:var(--spine-color);
+  stroke-width:6;
+  transition: stroke 0.3s ease;
+}
 .fuaim,
 .ceol {
   fill:none;
@@ -321,7 +326,7 @@ button.active {
 
 .color-grid {
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
   gap:18px;
 }
 
@@ -553,9 +558,14 @@ button.active {
 </div>
 
 <div class="color-tools">
-  <h2>Live Word Colors</h2>
-  <p>Use the C&eacute;ol and Fuaim buttons to open each word's color picker directly in the browser. The linework updates live without changing the underlying Ogham layout.</p>
+  <h2>Live Ogham Colors</h2>
+  <p>Use the spine, C&eacute;ol, and Fuaim buttons to open each line color picker directly in the browser. The layout stays the same while the strokes update live.</p>
   <div class="swatches">
+    <button type="button" class="swatch swatch-button" id="openSpineColor" aria-controls="colorModal">
+      <span class="swatch-dot" id="spineSwatch" style="background:#111111"></span>
+      Spine
+      <span class="swatch-value" id="spineValue">#111111</span>
+    </button>
     <button type="button" class="swatch swatch-button" id="openCeolColor" aria-controls="colorModal">
       <span class="swatch-dot" id="ceolSwatch" style="background:#111111"></span>
       C&eacute;ol
@@ -574,9 +584,24 @@ button.active {
 
 <div class="color-modal" id="colorModal" hidden>
   <div class="color-panel" role="dialog" aria-modal="true" aria-labelledby="colorModalTitle">
-    <h2 id="colorModalTitle">Word Color Controls</h2>
-    <p>Use the browser color picker or the preset manuscript tones to tune <strong>Céol</strong> and <strong>Fuaim</strong> independently.</p>
+    <h2 id="colorModalTitle">Ogham Color Controls</h2>
+    <p>Use the browser color picker or the preset manuscript tones to tune the <strong>spine</strong>, <strong>C&eacute;ol</strong>, and <strong>Fuaim</strong> independently.</p>
     <div class="color-grid">
+      <section class="color-card">
+        <h3>Spine</h3>
+        <div class="color-picker-row">
+          <label for="spineColorInput">Line color</label>
+          <input id="spineColorInput" type="color" value="#111111" />
+        </div>
+        <div class="color-readout" id="spineReadout">#111111</div>
+        <p class="preset-label">Suggested manuscript tones</p>
+        <div class="preset-grid">
+          <button type="button" class="preset-button" data-word="spine" data-color="#111111">Ink</button>
+          <button type="button" class="preset-button" data-word="spine" data-color="#c8a55a">Gold</button>
+          <button type="button" class="preset-button" data-word="spine" data-color="#6a604d">Slate</button>
+          <button type="button" class="preset-button" data-word="spine" data-color="#45663e">Moss</button>
+        </div>
+      </section>
       <section class="color-card">
         <h3>Céol</h3>
         <div class="color-picker-row">
@@ -628,17 +653,22 @@ const modeNote = document.getElementById("modeNote");
 const stageBadge = document.getElementById("stageBadge");
 const oghamStage = document.getElementById("oghamStage");
 const colorModal = document.getElementById("colorModal");
+const openSpineColorButton = document.getElementById("openSpineColor");
 const openCeolColorButton = document.getElementById("openCeolColor");
 const openFuaimColorButton = document.getElementById("openFuaimColor");
 const closeColorModalButton = document.getElementById("closeColorModal");
 const resetColorsInlineButton = document.getElementById("resetColorsInline");
 const resetColorsModalButton = document.getElementById("resetColorsModal");
+const spineColorInput = document.getElementById("spineColorInput");
 const ceolColorInput = document.getElementById("ceolColorInput");
 const fuaimColorInput = document.getElementById("fuaimColorInput");
+const spineReadout = document.getElementById("spineReadout");
 const ceolReadout = document.getElementById("ceolReadout");
 const fuaimReadout = document.getElementById("fuaimReadout");
+const spineSwatch = document.getElementById("spineSwatch");
 const ceolSwatch = document.getElementById("ceolSwatch");
 const fuaimSwatch = document.getElementById("fuaimSwatch");
+const spineValue = document.getElementById("spineValue");
 const ceolValue = document.getElementById("ceolValue");
 const fuaimValue = document.getElementById("fuaimValue");
 const presetButtons = Array.from(document.querySelectorAll(".preset-button"));
@@ -715,6 +745,15 @@ function startAnimation() {
 function setWordColor(word, color) {
   const inputColor = color.toLowerCase();
   const displayColor = inputColor.toUpperCase();
+  if (word === "spine") {
+    document.documentElement.style.setProperty("--spine-color", inputColor);
+    spineColorInput.value = inputColor;
+    spineReadout.textContent = displayColor;
+    spineSwatch.style.background = inputColor;
+    spineValue.textContent = displayColor;
+    return;
+  }
+
   if (word === "ceol") {
     document.documentElement.style.setProperty("--ceol-color", inputColor);
     ceolColorInput.value = inputColor;
@@ -732,6 +771,7 @@ function setWordColor(word, color) {
 }
 
 function resetColors() {
+  setWordColor("spine", "#111111");
   setWordColor("ceol", "#111111");
   setWordColor("fuaim", "#111111");
 }
@@ -741,7 +781,11 @@ function openColorModal() {
 }
 
 function openWordColor(word) {
-  const targetInput = word === "ceol" ? ceolColorInput : fuaimColorInput;
+  const targetInput = {
+    spine: spineColorInput,
+    ceol: ceolColorInput,
+    fuaim: fuaimColorInput
+  }[word] || ceolColorInput;
   openColorModal();
 
   try {
@@ -760,6 +804,10 @@ function closeColorModal() {
   colorModal.hidden = true;
 }
 
+spineColorInput.addEventListener("input", (event) => {
+  setWordColor("spine", event.target.value);
+});
+
 ceolColorInput.addEventListener("input", (event) => {
   setWordColor("ceol", event.target.value);
 });
@@ -774,6 +822,7 @@ presetButtons.forEach((button) => {
   });
 });
 
+openSpineColorButton.addEventListener("click", () => openWordColor("spine"));
 openCeolColorButton.addEventListener("click", () => openWordColor("ceol"));
 openFuaimColorButton.addEventListener("click", () => openWordColor("fuaim"));
 closeColorModalButton.addEventListener("click", closeColorModal);
