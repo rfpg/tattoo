@@ -29,6 +29,7 @@ The `img/` folder currently includes:
 - `hounds.jpg`
 - `hound and hare.jpg`
 - `hounds of cuchlain.jpg`
+- `kellshound.jpg`
 - `dara.jpg`
   Hounds-related reference images
 
