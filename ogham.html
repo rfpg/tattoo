@@ -262,6 +262,10 @@ button.active {
   font-size:.94rem;
 }
 
+.swatch-button {
+  justify-content:center;
+}
+
 .swatch-dot {
   width:12px;
   height:12px;
@@ -550,21 +554,20 @@ button.active {
 
 <div class="color-tools">
   <h2>Live Word Colors</h2>
-  <p>Open the color controls to tweak the stroke color for each word directly in the browser. The linework updates live without changing the underlying Ogham layout.</p>
+  <p>Use the C&eacute;ol and Fuaim buttons to open each word's color picker directly in the browser. The linework updates live without changing the underlying Ogham layout.</p>
   <div class="swatches">
-    <span class="swatch">
+    <button type="button" class="swatch swatch-button" id="openCeolColor" aria-controls="colorModal">
       <span class="swatch-dot" id="ceolSwatch" style="background:#111111"></span>
-      Céol
+      C&eacute;ol
       <span class="swatch-value" id="ceolValue">#111111</span>
-    </span>
-    <span class="swatch">
+    </button>
+    <button type="button" class="swatch swatch-button" id="openFuaimColor" aria-controls="colorModal">
       <span class="swatch-dot" id="fuaimSwatch" style="background:#111111"></span>
       Fuaim
       <span class="swatch-value" id="fuaimValue">#111111</span>
-    </span>
+    </button>
   </div>
   <div class="tool-actions">
-    <button type="button" id="openColorModal">Open Word Colors</button>
     <button type="button" id="resetColorsInline">Reset to Ink</button>
   </div>
 </div>
@@ -625,7 +628,8 @@ const modeNote = document.getElementById("modeNote");
 const stageBadge = document.getElementById("stageBadge");
 const oghamStage = document.getElementById("oghamStage");
 const colorModal = document.getElementById("colorModal");
-const openColorModalButton = document.getElementById("openColorModal");
+const openCeolColorButton = document.getElementById("openCeolColor");
+const openFuaimColorButton = document.getElementById("openFuaimColor");
 const closeColorModalButton = document.getElementById("closeColorModal");
 const resetColorsInlineButton = document.getElementById("resetColorsInline");
 const resetColorsModalButton = document.getElementById("resetColorsModal");
@@ -736,6 +740,22 @@ function openColorModal() {
   colorModal.hidden = false;
 }
 
+function openWordColor(word) {
+  const targetInput = word === "ceol" ? ceolColorInput : fuaimColorInput;
+  openColorModal();
+
+  try {
+    if (typeof targetInput.showPicker === "function") {
+      targetInput.showPicker();
+      return;
+    }
+
+    targetInput.click();
+  } catch (error) {
+    targetInput.focus();
+  }
+}
+
 function closeColorModal() {
   colorModal.hidden = true;
 }
@@ -754,7 +774,8 @@ presetButtons.forEach((button) => {
   });
 });
 
-openColorModalButton.addEventListener("click", openColorModal);
+openCeolColorButton.addEventListener("click", () => openWordColor("ceol"));
+openFuaimColorButton.addEventListener("click", () => openWordColor("fuaim"));
 closeColorModalButton.addEventListener("click", closeColorModal);
 resetColorsInlineButton.addEventListener("click", resetColors);
 resetColorsModalButton.addEventListener("click", resetColors);
